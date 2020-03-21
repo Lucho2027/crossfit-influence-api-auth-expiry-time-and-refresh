@@ -3,13 +3,12 @@ const xss = require("xss")
 const WorkoutsService = {
 	getAllWorkouts(db) {
 		return db
-			.from("influence_workouts AS art")
+			.from("influence_workouts AS wod")
 			.select(
-				"art.id",
-				"art.title",
-				"art.date_created",
-				"art.style",
-				"art.content",
+				"wod.id",
+				"wod.title",
+				"wod.date_created",
+				"wod.content",
 				db.raw(`count(DISTINCT comm) AS number_of_comments`),
 				db.raw(
 					`json_strip_nulls(
@@ -24,14 +23,14 @@ const WorkoutsService = {
           ) AS "author"`
 				)
 			)
-			.leftJoin("influence_comments AS comm", "art.id", "comm.workout_id")
-			.leftJoin("influence_users AS usr", "art.author_id", "usr.id")
-			.groupBy("art.id", "usr.id")
+			.leftJoin("influence_comments AS comm", "wod.id", "comm.workout_id")
+			.leftJoin("influence_users AS usr", "wod.author_id", "usr.id")
+			.groupBy("wod.id", "usr.id")
 	},
 
 	getById(db, id) {
 		return WorkoutsService.getAllWorkouts(db)
-			.where("art.id", id)
+			.where("wod.id", id)
 			.first()
 	},
 
