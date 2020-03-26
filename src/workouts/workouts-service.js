@@ -61,6 +61,19 @@ const WorkoutsService = {
 			.leftJoin("influence_users AS usr", "comm.user_id", "usr.id")
 			.groupBy("comm.id", "usr.id")
 	},
+	insertWorkout(db, newWorkout) {
+		return db
+			.insert(newWorkout)
+			.into("influence_workouts")
+			.returning("*")
+			.then(([workout]) => workout)
+			.then(workout => WorkoutsService.getById(db, workout.id))
+	},
+	deleteWorkout(db, id) {
+		return db("influence_workouts")
+			.where("id", id)
+			.del()
+	},
 
 	serializeWorkout(workout) {
 		const { author } = workout
