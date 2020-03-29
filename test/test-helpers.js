@@ -43,7 +43,6 @@ function makeWorkoutsArray(users) {
 		{
 			id: 1,
 			title: "First test post!",
-			style: "How-to",
 			author_id: users[0].id,
 			date_created: new Date("2029-01-22T16:28:32.615Z"),
 			content:
@@ -52,7 +51,6 @@ function makeWorkoutsArray(users) {
 		{
 			id: 2,
 			title: "Second test post!",
-			style: "Interview",
 			author_id: users[1].id,
 			date_created: new Date("2029-01-22T16:28:32.615Z"),
 			content:
@@ -61,7 +59,6 @@ function makeWorkoutsArray(users) {
 		{
 			id: 3,
 			title: "Third test post!",
-			style: "News",
 			author_id: users[2].id,
 			date_created: new Date("2029-01-22T16:28:32.615Z"),
 			content:
@@ -70,7 +67,6 @@ function makeWorkoutsArray(users) {
 		{
 			id: 4,
 			title: "Fourth test post!",
-			style: "Listicle",
 			author_id: users[3].id,
 			date_created: new Date("2029-01-22T16:28:32.615Z"),
 			content:
@@ -142,7 +138,6 @@ function makeExpectedWorkout(users, workout, comments = []) {
 
 	return {
 		id: workout.id,
-		style: workout.style,
 		title: workout.title,
 		content: workout.content,
 		date_created: workout.date_created.toISOString(),
@@ -184,7 +179,6 @@ function makeExpectedWorkoutComments(users, workoutId, comments) {
 function makeMaliciousWorkout(user) {
 	const maliciousWorkout = {
 		id: 911,
-		style: "How-to",
 		date_created: new Date(),
 		title: 'Naughty naughty very naughty <script>alert("xss");</script>',
 		author_id: user.id,

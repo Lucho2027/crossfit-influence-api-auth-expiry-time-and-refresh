@@ -141,25 +141,5 @@ describe("Workouts Endpoints", function() {
 					.expect(404, { error: `Workout doesn't exist` })
 			})
 		})
-
-		context("Given there are comments for workout in the database", () => {
-			beforeEach("insert workouts", () =>
-				helpers.seedWorkoutsTables(db, testUsers, testWorkouts, testComments)
-			)
-
-			it("responds with 200 and the specified comments", () => {
-				const workoutId = 1
-				const expectedComments = helpers.makeExpectedWorkoutComments(
-					testUsers,
-					workoutId,
-					testComments
-				)
-
-				return supertest(app)
-					.get(`/api/workouts/${workoutId}/comments`)
-					.set("Authorization", helpers.makeAuthHeader(testUsers[0]))
-					.expect(200, expectedComments)
-			})
-		})
 	})
 })
